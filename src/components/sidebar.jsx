@@ -1,5 +1,3 @@
-// src/components/sidebar.js
-
 import React from "react";
 import { FaTasks, FaCog, FaSignOutAlt } from "react-icons/fa";
 import { LOGOUT_ROUTE } from "../utils/constants";
@@ -10,6 +8,7 @@ import { toast } from "react-toastify";
 const Sidebar = ({ selected, setSelected }) => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
+  console.log(user);
 
   const handleLogout = () => {
     axiosInstance
@@ -23,26 +22,38 @@ const Sidebar = ({ selected, setSelected }) => {
         toast.error(error?.message || "Error Logging out");
       });
   };
+  const getProfileImage = () => {
+    alert("hjkl");
+    // if (user?.image) {
+    //   const fullUrl = user.image.replace(/\\/g, "/");
+    //   console.log(fullUrl); // Log the final image URL
+    //   return fullUrl;
+    // } else {
+    //   return "https://www.w3schools.com/w3images/avatar2.png"; // Default avatar if no image exists
+    // }
+    return user.image.replace(/\\/g, "/");
+  };
+
   return (
-    <div className="bg-[#297CBF] w-64 sm:w-48 md:w-64 lg:w-64 h-screen px-4 text-white flex flex-col fixed top-0 left-0 mt-[125px]">
+    <div className="bg-[#297CBF] w-64 sm:w-48 md:w-64 lg:w-64 h-screen px-4 text-white flex flex-col fixed top-0 left-0 mt-[125px] sm:mt-[75px] md:mt-[100px] lg:mt-[120px]">
       {/* User Profile Image */}
       <div className="relative flex justify-center items-center">
         <img
           src="https://www.w3schools.com/w3images/avatar2.png"
           alt="User Avatar"
-          className="w-20 h-20 rounded-full border-4 border-white absolute top-[-30px]"
+          className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 border-white absolute top-[-30px]"
         />
       </div>
 
       {/* User Name */}
-      <div className="flex flex-col items-center mt-16 mb-8">
-        <p className="text-xl">
+      <div className="flex flex-col items-center mt-12 sm:mt-16 mb-8">
+        <p className="text-sm sm:text-lg">
           {user.first_name} {user.last_name}
         </p>
       </div>
 
       {/* Sidebar Navigation */}
-      <div>
+      <div className="flex flex-col">
         {/* My Task */}
         <div
           className={`flex items-center p-3 rounded-lg cursor-pointer mb-4 ${
@@ -51,7 +62,7 @@ const Sidebar = ({ selected, setSelected }) => {
           onClick={() => setSelected("myTask")}
         >
           <FaTasks className="mr-4" />
-          <span>My Task</span>
+          <span className="text-sm sm:text-base">My Task</span>
         </div>
 
         {/* Settings */}
@@ -62,17 +73,17 @@ const Sidebar = ({ selected, setSelected }) => {
           onClick={() => setSelected("settings")}
         >
           <FaCog className="mr-4" />
-          <span>Settings</span>
+          <span className="text-sm sm:text-base">Settings</span>
         </div>
-      </div>
 
-      {/* Logout Button */}
-      <div
-        className="flex items-center p-3 rounded-lg cursor-pointer mt-72 sm:mt-16 md:mt-40 lg:mt-48 text-white"
-        onClick={handleLogout}
-      >
-        <FaSignOutAlt className="mr-4" />
-        <span>Logout</span>
+        {/* Logout Button */}
+        <div
+          className="flex items-center p-3 rounded-lg cursor-pointer mt-8 sm:mt-12 md:mt-16 lg:mt-16 text-white"
+          onClick={handleLogout}
+        >
+          <FaSignOutAlt className="mr-4" />
+          <span className="text-sm sm:text-base">Logout</span>
+        </div>
       </div>
     </div>
   );

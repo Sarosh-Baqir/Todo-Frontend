@@ -91,10 +91,10 @@ const Tasks = ({ searchQuery }) => {
       {filteredTasks.map((task) => (
         <div
           key={task._id}
-          className="mb-6 p-8 border-2 border-gray-400 bg-[#f8f8f8] shadow-md rounded-lg"
+          className="mb-6 p-6 sm:p-8 border-2 border-gray-400 bg-[#f8f8f8] shadow-md rounded-lg"
         >
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6">
-            <h2 className="text-2xl font-semibold">{task.title}</h2>
+            <h2 className="text-xl sm:text-2xl font-semibold">{task.title}</h2>
             <div className="flex items-center space-x-4 mt-4 sm:mt-0">
               <button
                 onClick={() => openEditModal(task)}

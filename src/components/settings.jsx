@@ -44,7 +44,7 @@ const Settings = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 px-4 sm:px-8 lg:px-16">
       <div>
         <h2 className="text-2xl font-semibold">Profile Information</h2>
         <div className="mt-2">
@@ -59,7 +59,7 @@ const Settings = () => {
         <h2 className="text-xl font-semibold">Change Password</h2>
         <div className="space-y-4 mt-4">
           {/* Old Password Input */}
-          <div className="flex items-center border-2 border-[#777777] py-2 px-4 rounded mb-4 w-1/2">
+          <div className="flex items-center border-2 border-[#777777] py-2 px-4 rounded mb-4 w-full sm:w-3/4 md:w-1/2">
             <FaLock className="h-4 w-4 text-black" />
             <input
               className="pl-3 outline-none border-none w-full text-black bg-white"
@@ -71,7 +71,7 @@ const Settings = () => {
             />
           </div>
           {/* New Password Input */}
-          <div className="flex items-center border-2 border-[#777777] py-2 px-4 rounded mb-4 w-1/2">
+          <div className="flex items-center border-2 border-[#777777] py-2 px-4 rounded mb-4 w-full sm:w-3/4 md:w-1/2">
             <FaLock className="h-4 w-4 text-black" />
             <input
               className="pl-3 outline-none border-none w-full text-black bg-white"
@@ -83,7 +83,7 @@ const Settings = () => {
             />
           </div>
           {/* Confirm Password Input */}
-          <div className="flex items-center border-2 border-[#777777] py-2 px-4 rounded mb-4 w-1/2">
+          <div className="flex items-center border-2 border-[#777777] py-2 px-4 rounded mb-4 w-full sm:w-3/4 md:w-1/2">
             <FaLock className="h-4 w-4 text-black" />
             <input
               className="pl-3 outline-none border-none w-full text-black bg-white"
@@ -100,7 +100,7 @@ const Settings = () => {
       <div>
         <button
           onClick={handleSubmit}
-          className="bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 transition"
+          className="bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600 transition w-full sm:w-auto"
           disabled={loading}
         >
           {loading ? "Updating..." : "Update Password"}
