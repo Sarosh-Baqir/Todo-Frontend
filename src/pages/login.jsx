@@ -93,6 +93,14 @@ const Login = () => {
               Sign up
             </Link>
           </p>
+
+          {/* Reset Password Link */}
+          <p className="mt-4 text-sm text-center">
+            Forgot Password?{" "}
+            <Link to="/forget-password" className="text-[#297CBF]">
+              Reset Password
+            </Link>
+          </p>
         </div>
 
         {/* Right Section */}

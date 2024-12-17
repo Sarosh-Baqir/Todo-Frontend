@@ -146,7 +146,8 @@ const Signup = () => {
             type="file"
             accept="image/*"
             onChange={handleProfilePic}
-          ></input>
+            className="border-2 mb-2 w-full border-gray-400 bg-white text-black py-2 px-4 focus:outline-none focus:ring-2"
+          />
 
           {/* Signup Button */}
           <button
@@ -156,7 +157,7 @@ const Signup = () => {
             Sign Up
           </button>
 
-          <p className="mt-4 text-sm md:text-base">
+          <p className="mt-2 mb-2 text-sm md:text-base">
             Already have an account?{" "}
             <Link to="/" className="text-blue-600">
               Login here

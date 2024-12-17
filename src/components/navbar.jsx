@@ -11,7 +11,7 @@ const Navbar = ({ onSearch }) => {
   };
 
   return (
-    <nav className="bg-[#f8f8f8] p-4 flex flex-wrap items-center justify-between">
+    <nav className="bg-[#f8f8f8] fixed top-0 w-full z-50 p-4 flex flex-wrap items-center justify-between">
       {/* Left Section - Logo */}
       <div className="flex items-center">
         <img

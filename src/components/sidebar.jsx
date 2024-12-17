@@ -1,15 +1,39 @@
-import React from "react";
-import { FaTasks, FaCog, FaSignOutAlt } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { FaTasks, FaCog, FaSignOutAlt, FaBars } from "react-icons/fa";
 import { LOGOUT_ROUTE } from "../utils/constants";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../lib/apiClient";
 import { toast } from "react-toastify";
+import { HOST } from "../utils/constants";
 
-const Sidebar = ({ selected, setSelected }) => {
+const Sidebar = ({
+  selected,
+  setSelected,
+  isSidebarVisible,
+  setSidebarVisible,
+  toggleSidebar,
+  setIsMobilee,
+}) => {
+  const [isMobile, setIsMobile] = useState(false);
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
-  console.log(user);
+  useEffect(() => {
+    const handleResize = () => {
+      const mobileView = window.innerWidth < 768;
 
+      setIsMobilee(mobileView);
+      setIsMobile(mobileView);
+      setSidebarVisible(mobileView ? false : isSidebarVisible);
+    };
+
+    handleResize();
+
+    setSidebarVisible(isMobile ? false : isSidebarVisible);
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, [isMobile]);
   const handleLogout = () => {
     axiosInstance
       .post(LOGOUT_ROUTE)
@@ -22,69 +46,75 @@ const Sidebar = ({ selected, setSelected }) => {
         toast.error(error?.message || "Error Logging out");
       });
   };
-  const getProfileImage = () => {
-    alert("hjkl");
-    // if (user?.image) {
-    //   const fullUrl = user.image.replace(/\\/g, "/");
-    //   console.log(fullUrl); // Log the final image URL
-    //   return fullUrl;
-    // } else {
-    //   return "https://www.w3schools.com/w3images/avatar2.png"; // Default avatar if no image exists
-    // }
-    return user.image.replace(/\\/g, "/");
-  };
 
   return (
-    <div className="bg-[#297CBF] w-64 sm:w-48 md:w-64 lg:w-64 h-screen px-4 text-white flex flex-col fixed top-0 left-0 mt-[125px] sm:mt-[75px] md:mt-[100px] lg:mt-[120px]">
-      {/* User Profile Image */}
-      <div className="relative flex justify-center items-center">
-        <img
-          src="https://www.w3schools.com/w3images/avatar2.png"
-          alt="User Avatar"
-          className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 border-white absolute top-[-30px]"
-        />
+    <div
+      className={`${isSidebarVisible ? "bg-[#297CBF]" : "bg-white"} ${
+        isSidebarVisible ? "w-64" : "w-16"
+      } h-screen px-4 text-white flex flex-col fixed top-0 left-0  mt-[125px] sm:mt-[80px] md:mt-[125px] lg:mt-[135px] transition-all`}
+    >
+      <div className="relative flex justify-between items-center">
+        {/* User Profile Image and Name */}
+        {isSidebarVisible && (
+          <img
+            src={`${HOST}/${user.image}`}
+            alt="User Avatar"
+            className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 border-white absolute top-[-30px] left-1/2 transform -translate-x-1/2"
+          />
+        )}
+        {/* Hamburger Icon */}
+        <div
+          className={`absolute top-0 right-4 mt-4 cursor-pointer ${
+            isSidebarVisible ? "text-white" : "text-blue-500"
+          }`}
+          onClick={toggleSidebar}
+        >
+          <FaBars className="text-xl" />
+        </div>
       </div>
-
-      {/* User Name */}
-      <div className="flex flex-col items-center mt-12 sm:mt-16 mb-8">
+      <div className="text-center mt-16 mb-16">
         <p className="text-sm sm:text-lg">
           {user.first_name} {user.last_name}
         </p>
       </div>
 
       {/* Sidebar Navigation */}
-      <div className="flex flex-col">
-        {/* My Task */}
-        <div
-          className={`flex items-center p-3 rounded-lg cursor-pointer mb-4 ${
-            selected === "myTask" ? "bg-white text-[#297CBF]" : "text-white"
-          }`}
-          onClick={() => setSelected("myTask")}
-        >
-          <FaTasks className="mr-4" />
-          <span className="text-sm sm:text-base">My Task</span>
-        </div>
+      {isSidebarVisible && (
+        <div className="flex flex-col ">
+          {/* My Task */}
+          <div
+            className={`flex items-center p-3 rounded-lg cursor-pointer mb-4 ${
+              selected === "myTask" ? "bg-white text-[#297CBF]" : "text-white"
+            }`}
+            onClick={() => setSelected("myTask")}
+          >
+            <FaTasks className="mr-4" />
+            <span className="text-sm sm:text-base">My Task</span>
+          </div>
 
-        {/* Settings */}
-        <div
-          className={`flex items-center p-3 rounded-lg cursor-pointer mb-4 ${
-            selected === "settings" ? "bg-white text-[#297CBF]" : "text-white"
-          }`}
-          onClick={() => setSelected("settings")}
-        >
-          <FaCog className="mr-4" />
-          <span className="text-sm sm:text-base">Settings</span>
-        </div>
+          {/* Settings */}
+          <div
+            className={`flex items-center p-3 rounded-lg cursor-pointer ${
+              selected === "settings" ? "bg-white text-[#297CBF]" : "text-white"
+            }`}
+            onClick={() => setSelected("settings")}
+          >
+            <FaCog className="mr-4" />
+            <span className="text-sm sm:text-base">Settings</span>
+          </div>
 
-        {/* Logout Button */}
-        <div
-          className="flex items-center p-3 rounded-lg cursor-pointer mt-8 sm:mt-12 md:mt-16 lg:mt-16 text-white"
-          onClick={handleLogout}
-        >
-          <FaSignOutAlt className="mr-4" />
-          <span className="text-sm sm:text-base">Logout</span>
+          {/* Logout Button */}
+          <div
+            className="flex items-center p-3 rounded-lg cursor-pointer text-white mt-auto mb-4"
+            onClick={handleLogout}
+          >
+            <FaSignOutAlt className="mr-4" />
+            {isSidebarVisible && (
+              <span className="text-sm sm:text-base">Logout</span>
+            )}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

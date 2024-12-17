@@ -8,6 +8,7 @@ import {
 import Login from "../pages/login";
 import Dashboard from "../pages/dashboard";
 import Signup from "../pages/signup";
+import ForgetPassword from "../pages/forgetPassword";
 import VerifyUser from "../pages/verifyUser";
 
 function AppRoutes() {
@@ -31,6 +32,10 @@ function AppRoutes() {
     {
       path: "/verify-user",
       element: <PublicRoute element={<VerifyUser />} />,
+    },
+    {
+      path: "/forget-password",
+      element: <PublicRoute element={<ForgetPassword />} />,
     },
     {
       path: "/dashboard",

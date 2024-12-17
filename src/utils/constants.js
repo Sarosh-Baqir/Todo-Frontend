@@ -9,6 +9,8 @@ export const SIGNUP_ROUTE = `${USER_ROUTES}/register`;
 export const LOGOUT_ROUTE = `${USER_ROUTES}/logout`;
 export const UPDATE_PASSWORD_ROUTE = `${USER_ROUTES}/update-password`;
 export const VERIFY_USER_ROUTE = `${USER_ROUTES}/verify-user`;
+export const GET_OTP_ROUTE = `${USER_ROUTES}/get-otp/:email`;
+export const FORGET_PASSWORD_ROUTE = `${USER_ROUTES}/forget-password`;
 
 export const GET_TASKS_ROUTE = `${TASK_ROUTES}/`;
 export const ADD_TASK_ROUTE = `${TASK_ROUTES}/create`;
